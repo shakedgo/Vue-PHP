@@ -5,17 +5,17 @@ import axios from "axios";
 const name = ref("");
 const email = ref("");
 const password = ref("");
-const passError = ref("");
 
 async function handleSubmit() {
 	let res = await axios.post(
-		"http://localhost:4000/",
+		"http://localhost:4000/form.php",
 		JSON.stringify({
 			name: name.value,
 			email: email.value,
 			pass: password.value,
 		})
 	);
+	// let res = await axios.get("http://localhost:4000/");
 	console.log(res.data);
 }
 </script>
@@ -31,7 +31,6 @@ async function handleSubmit() {
 		<br />
 		<label>Password: </label>
 		<input type="password" required v-model="password" />
-		<div v-if="passError">{{ passError }}</div>
 		<br />
 		<button type="submit">Submit</button>
 	</form>
