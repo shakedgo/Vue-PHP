@@ -1,3 +1,25 @@
+<script setup>
+import { ref } from "@vue/reactivity";
+import axios from "axios";
+
+const name = ref("");
+const email = ref("");
+const password = ref("");
+const passError = ref("");
+
+async function handleSubmit() {
+	let res = await axios.post(
+		"http://localhost:4000/",
+		JSON.stringify({
+			name: name.value,
+			email: email.value,
+			pass: password.value,
+		})
+	);
+	console.log(res.data);
+}
+</script>
+
 <template>
 	<form @submit.prevent="handleSubmit">
 		<!-- prevents from page refresh -->
@@ -18,36 +40,5 @@
 	<p>Email: {{ email }}</p>
 	<p>Password: {{ password }}</p>
 </template>
-
-<script>
-import axios from "axios";
-export default {
-	data() {
-		return {
-			name: "",
-			email: "",
-			password: "",
-			passError: "",
-		};
-	},
-	methods: {
-		handleSubmit() {
-			axios
-				.post(
-					"http://localhost:4000/",
-					JSON.stringify({
-						name: this.name,
-						email: this.email,
-						pass: this.password,
-					})
-				)
-				.then((res) => {
-					// Process the response data
-					console.log(res.data);
-				});
-		},
-	},
-};
-</script>
 
 <style></style>
